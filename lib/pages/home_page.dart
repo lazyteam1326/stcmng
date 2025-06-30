@@ -95,9 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: InputDecoration(
                   hintText: "Recherche",
                   prefixIcon: IconButton(
-                    icon: Icon(Icons.qr_code_scanner),
+                    icon: Image.asset(
+                      "assets/icons/barcode-scan.png",
+                      width: 24, // you can adjust size
+                      height: 24,
+                    ),
                     onPressed: () async {
-                      _searchController.clear();
                       await scanDef(); // reload all
                     },
                   ),
@@ -271,8 +274,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (result != null && mounted) {
       await _loadProductsByBarcode(result);
-      _unfocusAfterRebuild();
     }
+    _unfocusAfterRebuild();
   }
 
   void _unfocusAfterRebuild() {
