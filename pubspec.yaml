@@ -37,6 +37,7 @@ dependencies:
   mobile_scanner: ^6.0.7
   audioplayers: ^5.2.1
   sqflite: ^2.3.0
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
