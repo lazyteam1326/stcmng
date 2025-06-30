@@ -12,27 +12,25 @@ class AddProduct extends StatefulWidget {
 }
 
 class _AddProductState extends State<AddProduct> {
-  String nameValue = "", barcodeValue = "click to scan";
+  String nameValue = "", barcodeValue = "Scanner";
   int qtyValue = 0, priceValue = 0;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController qtyController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
 
-  // Color nextPhoneColor = Colors.white;
-  // Color nextTextColor = const Color.fromARGB(82, 61, 61, 61);
   Color fieldRequired = Colors.red,
       borderColor = Color.fromARGB(255, 224, 224, 224);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add product')),
+      appBar: AppBar(title: Text('Ajouter un produit')),
       body: Column(
         children: [
           // add name
           Text(
-            'product name',
+            'Nom',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -66,7 +64,7 @@ class _AddProductState extends State<AddProduct> {
 
           // add qantity
           Text(
-            'Quantity',
+            'Quantité',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -103,7 +101,7 @@ class _AddProductState extends State<AddProduct> {
           ),
           // add price
           Text(
-            'Price',
+            'Prix',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -141,7 +139,7 @@ class _AddProductState extends State<AddProduct> {
 
           // add barcode
           Text(
-            'Add Barcode',
+            'Code-barres',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -166,7 +164,7 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
               child: Text(
-                'Save',
+                'Sauvegarder',
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'Poppins',
@@ -192,10 +190,11 @@ class _AddProductState extends State<AddProduct> {
       bool exists = await DatabaseHelper.instance.barcodeExists(result);
       if (exists) {
         setState(() {
-          barcodeValue = "scan again";
+          barcodeValue = "Scanner à nouveau";
         });
+        // ignore: use_build_context_synchronously
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Barcode already exists!")),
+          const SnackBar(content: Text("Le code-barres existe déjà !")),
         );
         return;
       }
@@ -208,8 +207,8 @@ class _AddProductState extends State<AddProduct> {
   void saveProduct() async {
     // Validation check
     if (nameValue.isEmpty ||
-        barcodeValue == "click to scan" ||
-        barcodeValue == "scan again" ||
+        barcodeValue == "Scanner" ||
+        barcodeValue == "Scanner à nouveau" ||
         qtyValue == 0 ||
         priceValue == 0) {
       setState(() {
@@ -218,7 +217,7 @@ class _AddProductState extends State<AddProduct> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("All fields are required!"),
+          content: Text("Tous les champs sont obligatoires!"),
           backgroundColor: Colors.red,
         ),
       );
@@ -239,13 +238,13 @@ class _AddProductState extends State<AddProduct> {
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(SnackBar(content: Text("Product saved!")));
+    ).showSnackBar(SnackBar(content: Text("Produit enregistré !")));
 
     nameController.clear();
     qtyController.clear();
     priceController.clear();
     setState(() {
-      barcodeValue = "click to scan";
+      barcodeValue = "Scanner";
       nameValue = "";
       qtyValue = 0;
       priceValue = 0;
